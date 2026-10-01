@@ -22,6 +22,14 @@ const nextConfig: NextConfig = {
         hostname: "hzhabhhyzskbpyodoacg.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      {
+        // ponytail: token signed URL ikut ter-bake ke HTML publik, jadi bucket ini
+        // hanya untuk gambar yang memang boleh dilihat siapa saja. Kalau butuh
+        // file privat, pindahkan bucket ke public=false dan pakai proxy server.
+        protocol: "https",
+        hostname: "hzhabhhyzskbpyodoacg.supabase.co",
+        pathname: "/storage/v1/object/sign/**",
+      },
     ],
   },
 };
