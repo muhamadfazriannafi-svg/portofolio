@@ -41,14 +41,8 @@ jobs:
         id: setup_pages
         uses: actions/configure-pages@v5
 
-      - name: Restore Next.js cache
-        uses: actions/cache@v4
-        with:
-          path: .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
-          restore-keys: |
-            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
-
+      # Cache .next sengaja tidak dipakai: isinya ikut mem-bake hasil fetch
+      # Supabase, jadi restore dari run lama mengembalikan konten lama.
       - name: Build
         run: npm run build
         env:

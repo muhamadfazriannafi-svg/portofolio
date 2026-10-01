@@ -11,6 +11,12 @@ const PROJECT_COLUMNS =
 const POST_COLUMNS =
   "id,slug,title,excerpt,content,tags,coverImage:cover_image,publishedAt:published_at,readingMinutes:reading_minutes";
 
+function warn(message: string, detail?: unknown) {
+  // Berguna saat build: tanpa ini, kegagalan Supabase diam-diam terkirim
+  // sebagai data contoh dan baru ketahuan setelah deploy.
+  console.warn(`[data] ${message}`, detail ?? "");
+}
+
 async function query<T>(
   table: string,
   columns: string,
@@ -23,11 +29,17 @@ async function query<T>(
 
   try {
     const { data, error } = await supabase.from(table).select(columns);
-    if (error || !data || data.length === 0) {
+    if (error) {
+      warn(`query ${table} gagal, pakai data contoh`, error.message);
+      return fallback;
+    }
+    if (!data || data.length === 0) {
+      warn(`tabel ${table} kosong, pakai data contoh`);
       return fallback;
     }
     return data as T[];
-  } catch {
+  } catch (error) {
+    warn(`query ${table} melempar error, pakai data contoh`, error);
     return fallback;
   }
 }
@@ -44,11 +56,17 @@ export const getProfile = cache(async (): Promise<Profile> => {
       .select(PROFILE_COLUMNS)
       .limit(1)
       .maybeSingle();
-    if (error || !data) {
+    if (error) {
+      warn("query profile gagal, pakai data contoh", error.message);
+      return placeholder.profile;
+    }
+    if (!data) {
+      warn("tabel profile kosong, pakai data contoh");
       return placeholder.profile;
     }
     return data as Profile;
-  } catch {
+  } catch (error) {
+    warn("query profile melempar error, pakai data contoh", error);
     return placeholder.profile;
   }
 });
