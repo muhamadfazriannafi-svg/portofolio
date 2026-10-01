@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import { getProfile, getSkills } from "@/lib/data";
+import { Gallery } from "@/components/gallery";
 
 export const metadata: Metadata = {
   title: "About",
@@ -53,6 +54,15 @@ export default async function AboutPage() {
           className="h-40 w-40 rounded-xl border border-border object-cover lg:justify-self-end"
         />
       </div>
+
+      {profile.gallery.length > 0 ? (
+        <section className="mt-16">
+          <h2 className="text-2xl font-semibold tracking-tight">Galeri</h2>
+          <div className="mt-8">
+            <Gallery images={profile.gallery} />
+          </div>
+        </section>
+      ) : null}
 
       <section className="mt-16 border-t border-border pt-12">
         <h2 className="text-2xl font-semibold tracking-tight">Keahlian</h2>

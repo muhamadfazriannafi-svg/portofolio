@@ -15,6 +15,11 @@ export const profile: Profile = {
     { label: "X", url: "https://x.com/username" },
     { label: "Email", url: "mailto:halo@namakamu.dev" },
   ],
+  gallery: [
+    { src: "https://picsum.photos/seed/profil-1/1200/800", alt: "Suasana kerja" },
+    { src: "https://picsum.photos/seed/profil-2/1200/800", alt: "Setup development" },
+    { src: "https://picsum.photos/seed/profil-3/1200/800", alt: "Kolaborasi tim" },
+  ],
 };
 
 export const skills: Skill[] = [
@@ -44,6 +49,16 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/username/portfolio",
     year: 2026,
     featured: true,
+    highlights: [
+      "Konten dikelola dari satu sumber: tabel Supabase",
+      "Static export, jadi hosting murah",
+      "Dark mode tanpa flash saat halaman dibuka",
+    ],
+    gallery: [
+      { src: "https://picsum.photos/seed/portfolio-1/1200/800", alt: "Beranda" },
+      { src: "https://picsum.photos/seed/portfolio-2/1200/800", alt: "Daftar project" },
+      { src: "https://picsum.photos/seed/portfolio-3/1200/800", alt: "Halaman detail" },
+    ],
   },
   {
     id: "p2",
@@ -58,6 +73,14 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/username/kanban",
     year: 2025,
     featured: true,
+    highlights: [
+      "Perubahan kartu langsung tersinkron antar anggota tim",
+      "Akses workspace dipisah lewat Row Level Security",
+    ],
+    gallery: [
+      { src: "https://picsum.photos/seed/kanban-1/1200/800", alt: "Board utama" },
+      { src: "https://picsum.photos/seed/kanban-2/1200/800", alt: "Detail kartu" },
+    ],
   },
   {
     id: "p3",
@@ -72,6 +95,16 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/username/analytics-api",
     year: 2025,
     featured: false,
+    highlights: [
+      "Payload event kept small",
+      "Indeks PostgreSQL untuk query agregat harian",
+      "Dianalog dengan Docker Compose",
+    ],
+    gallery: [
+      { src: "https://picsum.photos/seed/analytics-1/1200/800", alt: "Dokumentasi endpoint" },
+      { src: "https://picsum.photos/seed/analytics-2/1200/800", alt: "Dashboard agregat" },
+      { src: "https://picsum.photos/seed/analytics-3/1200/800", alt: "Konfigurasi Docker" },
+    ],
   },
   {
     id: "p4",
@@ -86,6 +119,16 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/username/ui-kit",
     year: 2024,
     featured: false,
+    highlights: [
+      "Fokus keyboard penuh di setiap komponen",
+      "Dukungan dark mode tanpa flash",
+      "Dokumentasi contoh pemakaian per komponen",
+    ],
+    gallery: [
+      { src: "https://picsum.photos/seed/ui-kit-1/1200/800", alt: "Daftar komponen" },
+      { src: "https://picsum.photos/seed/ui-kit-2/1200/800", alt: "Contoh tombol" },
+      { src: "https://picsum.photos/seed/ui-kit-3/1200/800", alt: "Contoh dialog" },
+    ],
   },
 ];
 

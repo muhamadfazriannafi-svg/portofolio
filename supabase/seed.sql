@@ -3,7 +3,7 @@
 -- Aman dijalankan berulang (idempotent): baris dengan id sama akan diperbarui.
 
 -- Profil (hanya boleh 1 baris, id = 1).
-insert into profile (id, name, role, tagline, bio, location, email, avatar_url, resume_url, socials)
+insert into profile (id, name, role, tagline, bio, location, email, avatar_url, resume_url, socials, gallery)
 values (
   1,
   'Nama Kamu',
@@ -14,7 +14,8 @@ values (
   'halo@namakamu.dev',
   'https://api.dicebear.com/9.x/initials/svg?seed=Nama%20Kamu&backgroundColor=6366f1',
   '/cv.pdf',
-  '[{"label":"GitHub","url":"https://github.com/username"},{"label":"LinkedIn","url":"https://linkedin.com/in/username"},{"label":"X","url":"https://x.com/username"},{"label":"Email","url":"mailto:halo@namakamu.dev"}]'::jsonb
+  '[{"label":"GitHub","url":"https://github.com/username"},{"label":"LinkedIn","url":"https://linkedin.com/in/username"},{"label":"X","url":"https://x.com/username"},{"label":"Email","url":"mailto:halo@namakayu.dev"}]'::jsonb,
+  '[{"src":"https://picsum.photos/seed/profil-1/1200/800","alt":"Suasana kerja"},{"src":"https://picsum.photos/seed/profil-2/1200/800","alt":"Setup development"},{"src":"https://picsum.photos/seed/profil-3/1200/800","alt":"Kolaborasi tim"}]'::jsonb
 )
 on conflict (id) do update set
   name = excluded.name,
@@ -25,7 +26,8 @@ on conflict (id) do update set
   email = excluded.email,
   avatar_url = excluded.avatar_url,
   resume_url = excluded.resume_url,
-  socials = excluded.socials;
+  socials = excluded.socials,
+  gallery = excluded.gallery;
 
 -- Keahlian.
 insert into skills (id, name, category, level) values
@@ -45,14 +47,16 @@ on conflict (id) do update set
   level = excluded.level;
 
 -- Project.
-insert into projects (id, slug, title, summary, description, tags, image_url, demo_url, repo_url, year, featured) values
+insert into projects (id, slug, title, summary, description, tags, image_url, demo_url, repo_url, year, featured, highlights, gallery) values
   (
     'p1', 'portofolio-dinamis', 'Portofolio Dinamis',
     'Situs portofolio dengan konten yang dikelola lewat database Supabase.',
     'Situs ini sendiri adalah salah satu project saya. Datanya bisa berasal dari Supabase (tabel projects, posts, skills) dan otomatis memakai data contoh saat environment variable belum diisi. Dibangun dengan Next.js App Router, React Server Components, dan Tailwind CSS, lengkap dengan dark mode.',
     array['Next.js','TypeScript','Tailwind','Supabase'],
     'https://picsum.photos/seed/portfolio/1200/800',
-    'https://example.com', 'https://github.com/username/portfolio', 2026, true
+    'https://example.com', 'https://github.com/username/portfolio', 2026, true,
+    array['Konten dikelola dari satu sumber: tabel Supabase','Static export, jadi hosting murah','Dark mode tanpa flash saat halaman dibuka'],
+    '[{"src":"https://picsum.photos/seed/portfolio-1/1200/800","alt":"Beranda"},{"src":"https://picsum.photos/seed/portfolio-2/1200/800","alt":"Daftar project"},{"src":"https://picsum.photos/seed/portfolio-3/1200/800","alt":"Halaman detail"}]'::jsonb
   ),
   (
     'p2', 'manajemen-tugas', 'Manajemen Tugas Tim',
@@ -60,7 +64,9 @@ insert into projects (id, slug, title, summary, description, tags, image_url, de
     'Aplikasi kanban dengan drag-and-drop, komentar, dan notifikasi real-time. Backend memakai Supabase Realtime dan PostgreSQL dengan Row Level Security untuk memisahkan data antar workspace.',
     array['React','Supabase','Realtime','PostgreSQL'],
     'https://picsum.photos/seed/kanban/1200/800',
-    'https://example.com', 'https://github.com/username/kanban', 2025, true
+    'https://example.com', 'https://github.com/username/kanban', 2025, true,
+    array['Perubahan kartu langsung tersinkron antar anggota tim','Akses workspace dipisah lewat Row Level Security'],
+    '[{"src":"https://picsum.photos/seed/kanban-1/1200/800","alt":"Board utama"},{"src":"https://picsum.photos/seed/kanban-2/1200/800","alt":"Detail kartu"}]'::jsonb
   ),
   (
     'p3', 'api-analitik', 'API Analitik Ringan',
@@ -68,7 +74,9 @@ insert into projects (id, slug, title, summary, description, tags, image_url, de
     'API untuk mengumpulkan event dari aplikasi klien, menyimpannya di PostgreSQL, lalu menampilkan agregat harian/mingguan pada dashboard. Fokus pada payload kecil dan query yang efisien.',
     array['Node.js','REST','PostgreSQL','Docker'],
     'https://picsum.photos/seed/analytics/1200/800',
-    null, 'https://github.com/username/analytics-api', 2025, false
+    null, 'https://github.com/username/analytics-api', 2025, false,
+    array['Payload event kept small','Indeks PostgreSQL untuk query agregat harian','Dianalog dengan Docker Compose'],
+    '[{"src":"https://picsum.photos/seed/analytics-1/1200/800","alt":"Dokumentasi endpoint"},{"src":"https://picsum.photos/seed/analytics-2/1200/800","alt":"Dashboard agregat"},{"src":"https://picsum.photos/seed/analytics-3/1200/800","alt":"Konfigurasi Docker"}]'::jsonb
   ),
   (
     'p4', 'komponen-ui', 'Pustaka Komponen UI',
@@ -76,7 +84,9 @@ insert into projects (id, slug, title, summary, description, tags, image_url, de
     'Pustaka komponen headless dengan fokus aksesibilitas (fokus, keyboard, ARIA) dan dukungan dark mode. Dibuat untuk dipakai ulang antar project pribadi.',
     array['React','TypeScript','A11y','Tailwind'],
     'https://picsum.photos/seed/ui-kit/1200/800',
-    'https://example.com', 'https://github.com/username/ui-kit', 2024, false
+    'https://example.com', 'https://github.com/username/ui-kit', 2024, false,
+    array['Fokus keyboard penuh di setiap komponen','Dukungan dark mode tanpa flash','Dokumentasi contoh pemakaian per komponen'],
+    '[{"src":"https://picsum.photos/seed/ui-kit-1/1200/800","alt":"Daftar komponen"},{"src":"https://picsum.photos/seed/ui-kit-2/1200/800","alt":"Contoh tombol"},{"src":"https://picsum.photos/seed/ui-kit-3/1200/800","alt":"Contoh dialog"}]'::jsonb
   )
 on conflict (id) do update set
   slug = excluded.slug,
@@ -88,7 +98,9 @@ on conflict (id) do update set
   demo_url = excluded.demo_url,
   repo_url = excluded.repo_url,
   year = excluded.year,
-  featured = excluded.featured;
+  featured = excluded.featured,
+  highlights = excluded.highlights,
+  gallery = excluded.gallery;
 
 -- Tulisan blog.
 insert into posts (id, slug, title, excerpt, content, tags, cover_image, published_at, reading_minutes) values

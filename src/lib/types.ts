@@ -3,6 +3,11 @@ export type SocialLink = {
   url: string;
 };
 
+export type GalleryImage = {
+  src: string;
+  alt: string;
+};
+
 export type Profile = {
   name: string;
   role: string;
@@ -13,6 +18,7 @@ export type Profile = {
   avatarUrl: string;
   resumeUrl: string;
   socials: SocialLink[];
+  gallery: GalleryImage[];
 };
 
 export type Skill = {
@@ -34,6 +40,8 @@ export type Project = {
   repoUrl: string | null;
   year: number;
   featured: boolean;
+  highlights: string[];
+  gallery: GalleryImage[];
 };
 
 export type Post = {

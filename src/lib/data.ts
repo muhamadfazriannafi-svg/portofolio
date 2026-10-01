@@ -4,10 +4,10 @@ import * as placeholder from "./placeholder-data";
 import type { Post, Profile, Project, Skill } from "./types";
 
 const PROFILE_COLUMNS =
-  "name,role,tagline,bio,location,email,avatarUrl:avatar_url,resumeUrl:resume_url,socials";
+  "name,role,tagline,bio,location,email,avatarUrl:avatar_url,resumeUrl:resume_url,socials,gallery";
 const SKILL_COLUMNS = "id,name,category,level";
 const PROJECT_COLUMNS =
-  "id,slug,title,summary,description,tags,imageUrl:image_url,demoUrl:demo_url,repoUrl:repo_url,year,featured";
+  "id,slug,title,summary,description,tags,imageUrl:image_url,demoUrl:demo_url,repoUrl:repo_url,year,featured,highlights,gallery";
 const POST_COLUMNS =
   "id,slug,title,excerpt,content,tags,coverImage:cover_image,publishedAt:published_at,readingMinutes:reading_minutes";
 

@@ -1,9 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProjectBySlug, getProjects } from "@/lib/data";
 import { Badge } from "@/components/badge";
+import { Gallery } from "@/components/gallery";
 
 export const dynamicParams = false;
 
@@ -82,13 +82,18 @@ export default async function ProjectDetailPage(
         </div>
       </header>
 
-      <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-xl border border-border">
-        <Image
-          src={project.imageUrl}
-          alt={project.title}
-          fill
-          sizes="(max-width: 768px) 100vw, 768px"
-          className="object-cover"
+      <div className="mt-10">
+        <Gallery
+          images={
+            project.gallery.length > 0
+              ? project.gallery
+              : [
+                  {
+                    src: project.imageUrl,
+                    alt: project.title,
+                  },
+                ]
+          }
           priority
         />
       </div>
@@ -98,6 +103,22 @@ export default async function ProjectDetailPage(
           <p key={index}>{paragraph}</p>
         ))}
       </div>
+
+      {project.highlights.length > 0 ? (
+        <section className="mt-12">
+          <h2 className="text-xl font-semibold tracking-tight">Poin Utama</h2>
+          <ul className="mt-6 flex flex-col gap-3">
+            {project.highlights.map((highlight) => (
+              <li key={highlight} className="flex gap-3 leading-7 text-muted">
+                <span aria-hidden="true" className="text-accent">
+                  &rsaquo;
+                </span>
+                <span>{highlight}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
     </article>
   );
 }

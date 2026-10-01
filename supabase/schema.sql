@@ -13,6 +13,7 @@ create table if not exists profile (
   avatar_url text not null,
   resume_url text not null default '',
   socials jsonb not null default '[]'::jsonb,
+  gallery jsonb not null default '[]'::jsonb,
   constraint profile_singleton check (id = 1)
 );
 
@@ -34,7 +35,9 @@ create table if not exists projects (
   demo_url text,
   repo_url text,
   year integer not null default extract(year from now()),
-  featured boolean not null default false
+  featured boolean not null default false,
+  highlights text[] not null default '{}',
+  gallery jsonb not null default '[]'::jsonb
 );
 
 create table if not exists posts (
